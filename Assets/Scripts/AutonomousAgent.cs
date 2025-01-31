@@ -16,17 +16,19 @@ public class AutonomousAgent : AIAgent
         //movement.ApplyForce(Vector3.forward * 10);
         transform.position = Utilities.Wrap(transform.position, new Vector3(-15, -5, -5), new Vector3(14, 14, 14));
 
-        //Debug.DrawRay(transform.position, transform.forward * perception.maxDistance, Color.green);
+        Debug.DrawRay(transform.position, transform.forward, Color.green);
 
         // SEEK
         if (seekPerception != null)
         {
             var gameObjects = seekPerception.GetGameObjects();
+            Debug.Log($"Seeking: { gameObjects.Length}");
             if (gameObjects.Length > 0)
             {
                 Vector3 force = Seek(gameObjects[0]);
                 movement.ApplyForce(force);
             }
+            
         }
 
         // Flee
@@ -46,6 +48,7 @@ public class AutonomousAgent : AIAgent
             var gameObjects = flockPerception.GetGameObjects();
             if (gameObjects.Length > 0)
             {
+                Debug.Log($"Flock: { gameObjects.Length}");
                 movement.ApplyForce(Cohesion(gameObjects) * data.cohesionWeight);
                 movement.ApplyForce(Seperation(gameObjects, data.seperationRadius) * data.seperationWeight);
                 movement.ApplyForce(Alignment(gameObjects) * data.alignmentWeight);
@@ -94,11 +97,36 @@ public class AutonomousAgent : AIAgent
     }
     private Vector3 Seperation(GameObject[] neighbors, float radius)
     {
-        return Vector3.zero;
+        Vector3 seperation = Vector3.zero;
+        foreach (var neighbor in neighbors)
+        {
+            Vector3 direction = transform.position - neighbor.transform.position;
+            float distance = direction.magnitude;
+            if (distance < radius)
+            {
+                seperation += direction / (distance * distance);
+            }
+        }
+        
+        Vector3 force = GetSteeringForce(seperation);
+
+        return force;
     }
     private Vector3 Alignment(GameObject[] neighbors)
     {
-        return Vector3.zero;
+        Vector3 velocities = Vector3.zero;
+
+        foreach (var neighbor in neighbors)
+        {
+            //velocities += movement.Velocity;
+            //velocities += neighbor.Velocity;
+        }    
+
+        Vector3 averageVelocity = velocities / neighbors.Length;
+
+        Vector3 force = GetSteeringForce(averageVelocity);
+
+        return force;
     }
     private Vector3 Wander()
     {

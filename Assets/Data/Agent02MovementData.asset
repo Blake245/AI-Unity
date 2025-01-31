@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ab70ed8638d1046b10da8c6c219e6b, type: 3}
   m_Name: Agent02MovementData
   m_EditorClassIdentifier: 
-  maxSpeed: 6.4
-  minSpeed: 5
-  maxForce: 14.2
+  maxSpeed: 3.1
+  minSpeed: 1.9
+  maxForce: 11.61
