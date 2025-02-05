@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8678687740361851477}
   - component: {fileID: 3224191984413572126}
   - component: {fileID: -6946264270027412867}
+  - component: {fileID: 6138552390203164455}
   - component: {fileID: 111028178902603012}
   - component: {fileID: 209273769491374124}
   - component: {fileID: 2419308140698689196}
@@ -53,9 +54,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: -6946264270027412867}
   data: {fileID: 11400000, guid: e440d59c88b3f5943ae0ba83ae4f8936, type: 2}
-  seekPerception: {fileID: 3224191984413572126}
+  seekPerception: {fileID: 0}
   fleePerception: {fileID: 0}
-  flockPerception: {fileID: -3339936843996358369}
+  flockPerception: {fileID: 0}
+  obstaclePerception: {fileID: 6138552390203164455}
 --- !u!114 &3224191984413572126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +86,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: aff55aca96b3bb149b9f30a299a80047, type: 2}
+--- !u!114 &6138552390203164455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685747948244834184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b299f52769c00db4887e318d6f96746d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 
+  maxDistance: 6
+  maxAngle: 120
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  numRays: 9
 --- !u!33 &111028178902603012
 MeshFilter:
   m_ObjectHideFlags: 0

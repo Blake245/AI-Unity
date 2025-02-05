@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AutonomousAgent : AIAgent
@@ -8,6 +9,7 @@ public class AutonomousAgent : AIAgent
     public Perception seekPerception;
     public Perception fleePerception;
     public Perception flockPerception;
+    public Perception obstaclePerception;
 
     float angle;
 
@@ -16,7 +18,7 @@ public class AutonomousAgent : AIAgent
         //movement.ApplyForce(Vector3.forward * 10);
         transform.position = Utilities.Wrap(transform.position, new Vector3(-15, -5, -5), new Vector3(14, 14, 14));
 
-        Debug.DrawRay(transform.position, transform.forward, Color.green);
+        //Debug.DrawRay(transform.position, transform.forward, Color.green);
 
         // SEEK
         if (seekPerception != null)
@@ -65,6 +67,17 @@ public class AutonomousAgent : AIAgent
         if (movement.Direction.sqrMagnitude != 0)
         {
             transform.rotation = Quaternion.LookRotation(movement.Direction);
+        }
+
+        //Obstacle Detection
+        if (obstaclePerception != null)
+        {
+            Vector3 direction = Vector3.zero;
+            if (obstaclePerception.GetOpenDirection(ref direction))
+            {
+                Debug.DrawRay(transform.position, direction * 5, Color.red, 0.2f);
+                movement.ApplyForce(GetSteeringForce(direction) * data.obstacleWeight);
+            }
         }
     }
 
@@ -118,8 +131,7 @@ public class AutonomousAgent : AIAgent
 
         foreach (var neighbor in neighbors)
         {
-            //velocities += movement.Velocity;
-            //velocities += neighbor.Velocity;
+            // neighbor.velocity don't exist
         }    
 
         Vector3 averageVelocity = velocities / neighbors.Length;
