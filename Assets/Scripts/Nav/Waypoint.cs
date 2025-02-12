@@ -6,9 +6,9 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<NavAgent>(out NavAgent agent))
-        {
-            agent.waypoint = waypoints[Random.Range(0, waypoints.Length)];
-        }
+        //if (other.gameObject.TryGetComponent<NavAgent>(out NavAgent agent))
+        //{
+        //    //agent.waypoint = waypoints[Random.Range(0, waypoints.Length)];
+        //}
     }
 }
