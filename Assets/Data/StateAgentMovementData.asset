@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ab70ed8638d1046b10da8c6c219e6b, type: 3}
   m_Name: StateAgentMovementData
   m_EditorClassIdentifier: 
-  maxSpeed: 7
+  maxSpeed: 5.9
   minSpeed: 4
   maxForce: 23.4
   turnRate: 15.5
